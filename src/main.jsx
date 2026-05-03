@@ -26,9 +26,19 @@ const ACCENTS = {
   rose:  { teal: '#BE185D', teal700: '#9D174D', teal500: '#E11D48', teal100: '#FCE7F3', teal50: '#FFF1F2' },
 };
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((error) => {
+      console.warn('No se pudo registrar el service worker de Vialys.', error);
+    });
+  });
+}
+
 function Root() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [isNarrow, setIsNarrow] = useState(() => window.matchMedia('(max-width: 720px)').matches);
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [installDismissed, setInstallDismissed] = useState(false);
 
   // apply accent variables
   useEffect(() => {
@@ -55,13 +65,52 @@ function Root() {
     return () => media.removeEventListener('change', syncViewport);
   }, []);
 
+  useEffect(() => {
+    const onBeforeInstall = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+      setInstallDismissed(false);
+    };
+    const onInstalled = () => {
+      setInstallPrompt(null);
+      setInstallDismissed(true);
+    };
+    window.addEventListener('beforeinstallprompt', onBeforeInstall);
+    window.addEventListener('appinstalled', onInstalled);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onBeforeInstall);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
+  }, []);
+
   const isPhone = isNarrow || tweaks.viewMode === 'phone';
+  const canInstall = isPhone && installPrompt && !installDismissed;
+
+  const requestInstall = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const choice = await installPrompt.userChoice;
+    if (choice.outcome !== 'dismissed') setInstallPrompt(null);
+    setInstallDismissed(true);
+  };
 
   return (
     <>
       {isPhone && (
         <div className="mobile-stage">
           <App darkMode={tweaks.darkMode} onToggleTheme={() => setTweak('darkMode', !tweaks.darkMode)}/>
+          {canInstall && (
+            <div className="install-card">
+              <div>
+                <strong>Instalar Vialys</strong>
+                <span>Abre como app y queda en tu pantalla de inicio.</span>
+              </div>
+              <button type="button" onClick={requestInstall}>Instalar</button>
+              <button type="button" className="install-close" aria-label="Cerrar" onClick={() => setInstallDismissed(true)}>
+                <VIcon.x size={16}/>
+              </button>
+            </div>
+          )}
         </div>
       )}
 

@@ -5,6 +5,12 @@ html, body, #root { width: 100%; min-height: 100%; height: 100%; }
   .frame-caption { color: #9aa3b8; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; }
   .mobile-stage { width: 100vw; height: 100vh; height: 100dvh; max-width: 430px; margin: 0 auto; background: var(--v-bg-app); overflow: hidden; }
   .mobile-stage .v-app { width: 100%; height: 100vh; height: 100dvh; min-height: 100vh; min-height: 100dvh; }
+  .install-card { position: fixed; left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); z-index: 80; display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid rgba(255,255,255,0.14); border-radius: 14px; background: rgba(11,18,32,0.94); color: #fff; box-shadow: 0 20px 48px rgba(2,6,23,0.35); backdrop-filter: blur(18px); }
+  .install-card div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .install-card strong { font-size: 13px; line-height: 1.2; }
+  .install-card span { font-size: 11px; line-height: 1.35; color: rgba(255,255,255,0.68); }
+  .install-card button { flex: 0 0 auto; height: 34px; border-radius: 9px; padding: 0 12px; background: var(--v-teal); color: #fff; font-size: 12px; font-weight: 800; }
+  .install-card .install-close { width: 34px; padding: 0; background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.78); }
   .desktop-stage { width: 100vw; height: 100vh; background: #F4F6FA; overflow: hidden; }
   .desktop-shell { display: flex; width: 100%; height: 100%; color: var(--v-ink); background: #F4F6FA; }
   .desktop-sidebar { width: clamp(232px, 18vw, 288px); background: #0F2447; color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
