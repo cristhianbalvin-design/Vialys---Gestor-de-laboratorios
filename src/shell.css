@@ -1,0 +1,140 @@
+html, body, #root { width: 100%; min-height: 100%; }
+  body { background: #1d2330; min-height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center; padding: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .frame-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; }
+  .frame-caption { color: #9aa3b8; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; }
+  .desktop-stage { width: 100vw; height: 100vh; background: #F4F6FA; overflow: hidden; }
+  .desktop-shell { display: flex; width: 100%; height: 100%; color: var(--v-ink); background: #F4F6FA; }
+  .desktop-sidebar { width: clamp(232px, 18vw, 288px); background: #0F2447; color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .desktop-main { flex: 1; min-width: 0; overflow: auto; background: #F4F6FA; }
+  .desktop-content { width: min(100%, 1480px); margin: 0 auto; padding: clamp(22px, 3vw, 40px); }
+  .desktop-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 22px; }
+  .desktop-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .desktop-nav-btn { min-height: 42px; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: rgba(255,255,255,0.70); background: transparent; font-weight: 600; font-size: 13px; text-align: left; border: 1px solid transparent; }
+  .desktop-nav-btn.active { color: #fff; background: rgba(13,148,136,0.20); border-color: rgba(13,148,136,0.40); }
+  .desktop-user { padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.06); display: flex; align-items: center; gap: 10px; }
+  .desktop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; align-items: start; }
+  .kanban-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+  .kanban-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--v-muted); font-size: 12px; }
+  .kanban-board { display: grid; grid-template-columns: repeat(6, minmax(260px, 1fr)); gap: 12px; overflow-x: auto; padding-bottom: 14px; align-items: stretch; }
+  .kanban-col { min-width: 260px; background: rgba(255,255,255,0.62); border: 1px solid var(--v-line); border-radius: 12px; display: flex; flex-direction: column; max-height: calc(100vh - 230px); }
+  .kanban-head { position: sticky; top: 0; z-index: 1; background: var(--k-soft, rgba(255,255,255,0.94)); backdrop-filter: blur(12px); border-bottom: 1px solid var(--k-line, var(--v-line-2)); border-radius: 12px 12px 0 0; padding: 12px; box-shadow: inset 4px 0 0 var(--k-color, var(--v-navy)); }
+  .kanban-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 800; font-size: 13px; color: var(--k-text, var(--v-ink)); }
+  .kanban-hint { margin-top: 4px; color: color-mix(in srgb, var(--k-text, var(--v-muted)) 74%, var(--v-muted)); font-size: 11px; font-weight: 600; }
+  .kanban-list { padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .kanban-list .v-order { margin-bottom: 0; border-radius: 10px; padding: 12px; }
+  .kanban-list .v-order .tests { gap: 4px; }
+  .kanban-empty { border: 1px dashed var(--v-line); border-radius: 10px; padding: 18px 10px; text-align: center; color: var(--v-muted); font-size: 12px; background: rgba(255,255,255,0.56); }
+  .archive-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .archive-table th { text-align: left; padding: 9px 10px; color: var(--v-muted); background: var(--v-bg-soft); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .archive-table td { padding: 10px; border-top: 1px solid var(--v-line-2); vertical-align: top; }
+  .desktop-stage .v-toast-stack { position: fixed; left: auto; right: 24px; top: 24px; width: min(360px, calc(100vw - 48px)); }
+  .desktop-stage .v-sheet-scrim { position: fixed; align-items: center; justify-content: center; padding: 24px; }
+  .desktop-stage .v-sheet { width: min(760px, 100%); max-height: min(86vh, 920px); border-radius: 16px; box-shadow: var(--sh-4); }
+  .desktop-stage .v-sheet .v-grab { display: none; }
+  .desktop-stage .v-sheet-head { padding: 16px 18px; }
+  .desktop-stage .v-sheet-body { padding: 18px; }
+  html[data-theme="dark"] {
+    --v-ink: #E8EEF8;
+    --v-ink-2: #D5DEEC;
+    --v-muted: #9CA9BD;
+    --v-subtle: #74849B;
+    --v-line: #26364C;
+    --v-line-2: #1D2A3C;
+    --v-bg: #101827;
+    --v-bg-soft: #151F2E;
+    --v-bg-app: #0B1220;
+    --v-navy-50: #101B2D;
+    --v-navy-100: #1C2B42;
+    --v-teal-50: #0A2525;
+    --v-teal-100: #0E3A38;
+    --v-ok-bg: #0A2A1A;
+    --v-warn-bg: #33220A;
+    --v-bad-bg: #351111;
+    --v-info-bg: #0B2433;
+  }
+  html[data-theme="dark"] body { background: #060B14; }
+  html[data-theme="dark"] .desktop-stage,
+  html[data-theme="dark"] .desktop-shell,
+  html[data-theme="dark"] .desktop-main { background: var(--v-bg-app) !important; color: var(--v-ink); }
+  html[data-theme="dark"] .v-app,
+  html[data-theme="dark"] .v-body { background: var(--v-bg-app) !important; color: var(--v-ink); }
+  html[data-theme="dark"] .v-card,
+  html[data-theme="dark"] .v-order,
+  html[data-theme="dark"] .v-kpi,
+  html[data-theme="dark"] .v-sheet,
+  html[data-theme="dark"] .v-acc,
+  html[data-theme="dark"] .v-acc-head,
+  html[data-theme="dark"] .v-seg,
+  html[data-theme="dark"] .kanban-col,
+  html[data-theme="dark"] .kanban-empty,
+  html[data-theme="dark"] .archive-table th {
+    background: var(--v-bg) !important;
+    border-color: var(--v-line) !important;
+    color: var(--v-ink) !important;
+  }
+  html[data-theme="dark"] .v-input,
+  html[data-theme="dark"] .v-select,
+  html[data-theme="dark"] .v-textarea {
+    background: #0B1220 !important;
+    border-color: var(--v-line) !important;
+    color: var(--v-ink) !important;
+  }
+  html[data-theme="dark"] .v-input::placeholder,
+  html[data-theme="dark"] .v-textarea::placeholder { color: #64748B; }
+  html[data-theme="dark"] .v-app[style],
+  html[data-theme="dark"] .v-body[style] {
+    background: var(--v-bg-app) !important;
+    color: var(--v-ink) !important;
+  }
+  html[data-theme="dark"] .v-body button[style*="background: rgb(255, 255, 255)"],
+  html[data-theme="dark"] .v-body button[style*="background: #fff"],
+  html[data-theme="dark"] .v-body div[style*="background: rgb(255, 255, 255)"],
+  html[data-theme="dark"] .v-body div[style*="background: #fff"] {
+    background: var(--v-bg) !important;
+    color: var(--v-ink) !important;
+    border-color: var(--v-line) !important;
+  }
+  html[data-theme="dark"] .v-body div[style*="color: var(--v-navy)"],
+  html[data-theme="dark"] .v-body span[style*="color: var(--v-navy)"] {
+    color: #BFD0E7 !important;
+  }
+  html[data-theme="dark"] .v-seg button.active,
+  html[data-theme="dark"] .v-tabbar {
+    background: #1A2638 !important;
+    color: var(--v-ink) !important;
+  }
+  html[data-theme="dark"] .v-tabbar { border-color: var(--v-line) !important; }
+  html[data-theme="dark"] .kanban-head {
+    background: color-mix(in srgb, var(--k-color, var(--v-navy)) 18%, var(--v-bg)) !important;
+    border-color: color-mix(in srgb, var(--k-color, var(--v-navy)) 42%, var(--v-line)) !important;
+  }
+  html[data-theme="dark"] .kanban-title { color: color-mix(in srgb, var(--k-color, var(--v-teal)) 65%, #fff) !important; }
+  html[data-theme="dark"] .kanban-title span:last-child { background: #0B1220 !important; }
+  html[data-theme="dark"] .v-pill.muted,
+  html[data-theme="dark"] .v-pill.brand {
+    background: #1B2738 !important;
+    color: #BFD0E7 !important;
+    border-color: var(--v-line) !important;
+  }
+  html[data-theme="dark"] .v-btn.ghost,
+  html[data-theme="dark"] .v-iconbtn.dark {
+    background: #101827 !important;
+    color: var(--v-ink) !important;
+    border-color: var(--v-line) !important;
+  }
+  html[data-theme="dark"] table,
+  html[data-theme="dark"] td,
+  html[data-theme="dark"] th { color: var(--v-ink); border-color: var(--v-line) !important; }
+  html[data-theme="dark"] .v-sheet-scrim { background: rgba(2, 6, 15, 0.72) !important; }
+  @media (max-width: 860px) {
+    body { padding: 0; }
+    .desktop-shell { flex-direction: column; }
+    .desktop-sidebar { width: 100%; height: auto; padding: 14px; flex-direction: row; overflow-x: auto; align-items: center; }
+    .desktop-sidebar .desktop-brand, .desktop-sidebar .desktop-user { display: none; }
+    .desktop-nav-btn { flex: 0 0 auto; }
+    .desktop-header { align-items: flex-start; flex-direction: column; }
+    .desktop-actions { justify-content: flex-start; }
+    .kanban-toolbar { align-items: flex-start; flex-direction: column; }
+    .kanban-col { max-height: 70vh; }
+  }
