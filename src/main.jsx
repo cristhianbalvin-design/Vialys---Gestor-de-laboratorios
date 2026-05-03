@@ -1,39 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../styles.css';
 import './shell.css';
-
-window.React = React;
-window.ReactDOM = { createRoot };
-window.useState = React.useState;
-window.useEffect = React.useEffect;
-window.useReducer = React.useReducer;
-window.useMemo = React.useMemo;
-window.useCallback = React.useCallback;
-window.useRef = React.useRef;
-
-await import('../ios-frame.jsx');
-await import('../tweaks-panel.jsx');
-await import('../icons.jsx');
-await import('../data.jsx');
-await import('../primitives.jsx');
-await import('../screens/Login.jsx');
-await import('../screens/Recepcion.jsx');
-await import('../screens/Toma.jsx');
-await import('../screens/Procesamiento.jsx');
-await import('../screens/Emision.jsx');
-await import('../screens/Admin.jsx');
-await import('../app.jsx');
-
-const {
-  useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle,
-  IOSDevice, App, VIcon, Logo, Btn, Toast, Sheet, NewOrder, OrderDetail,
-  TomaForm, ProcesamientoForm, ResultadosSheet, Dashboard, RecepcionHome,
-  TomaHome, ProcesamientoHome, EmisionHome, Reportes, AdminScreen,
-  ORDENES_SEED, USUARIOS, SEDES, ESTADOS, ESTADO_NM, TEST_BY_ID,
-  Pill, EstadoPill, sedeNm, fmtDate, estadoOrden
-} = window;
-const { useState, useEffect } = React;
+import { IOSDevice } from '../ios-frame.jsx';
+import { TweakRadio, TweakSection, TweakToggle, TweaksPanel, useTweaks } from '../tweaks-panel.jsx';
+import { VIcon } from '../icons.jsx';
+import { App, OrderDetail } from '../app.jsx';
+import { Btn, EstadoPill, Logo, Pill, Sheet, Toast } from '../primitives.jsx';
+import { NewOrder, RecepcionHome } from '../screens/Recepcion.jsx';
+import { TomaForm, TomaHome } from '../screens/Toma.jsx';
+import { ProcesamientoForm, ProcesamientoHome } from '../screens/Procesamiento.jsx';
+import { EmisionHome, ResultadosSheet } from '../screens/Emision.jsx';
+import { AdminScreen, Dashboard, Reportes } from '../screens/Admin.jsx';
+import { ESTADO_NM, ESTADOS, ORDENES_SEED, SEDES, TEST_BY_ID, USUARIOS, estadoOrden, fmtDate, sedeNm } from '../data.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "viewMode": "desktop",

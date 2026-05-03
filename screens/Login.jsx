@@ -1,6 +1,9 @@
 // Vialys — Login + role switch screens
 
-const { useState: uS_l } = React;
+import React, { useState } from 'react';
+import { VIcon } from '../icons.jsx';
+import { Logo } from '../primitives.jsx';
+import { ROLES, SEDES, USUARIOS } from '../data.jsx';
 
 function LoginScreen({ onLogin, darkMode, onToggleTheme }) {
   const [step, setStep] = useState('users'); // users | sede | role
@@ -117,4 +120,4 @@ function LoginScreen({ onLogin, darkMode, onToggleTheme }) {
   );
 }
 
-window.LoginScreen = LoginScreen;
+export { LoginScreen };

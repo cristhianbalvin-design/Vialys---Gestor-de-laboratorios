@@ -1,6 +1,8 @@
 // Vialys — shared icons (stroke-based, 1.6px, rounded)
 // Pass `size` and `color` props.
 
+import React from 'react';
+
 const VIcon = {};
 
 const _ico = (name, paths, opts = {}) => {
@@ -56,10 +58,9 @@ _ico('refresh', <><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 4v4h-4"/
 _ico('save', <><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M7 3v6h8V3"/><path d="M7 14h10v7H7z"/></>);
 _ico('edit', <><path d="M4 20h4l10-10-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></>);
 
-window.VIcon = VIcon;
 
 // Brand mark — V inside a square with a tracked path
-window.VialysMark = function VialysMark({ size = 28, light = false }) {
+function VialysMark({ size = 28, light = false }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
       <rect width="32" height="32" rx="8" fill={light ? '#0D9488' : '#1B3A6B'}/>
@@ -69,4 +70,6 @@ window.VialysMark = function VialysMark({ size = 28, light = false }) {
       <path d="m21.4 9.5.9.9 1.6-1.6" stroke="#fff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
-};
+}
+
+export { VIcon, VialysMark };

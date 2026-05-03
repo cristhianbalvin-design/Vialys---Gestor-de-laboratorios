@@ -1,5 +1,13 @@
 // Vialys — Recepción / Registro de orden
 
+import React, { useState } from 'react';
+import { VIcon } from '../icons.jsx';
+import { Btn, EstadoPill, Field, Pill, ProcessEmpty, ProcessShell, ProcessToolbar, SectionTitle } from '../primitives.jsx';
+import {
+  CATEGORIAS, PACIENTES, SEDES, TEST_BY_ID, calcEdad, estadoOrden, fmtDate,
+  newCode, sedeNm
+} from '../data.jsx';
+
 function LegacyRecepcionHome({ orders, sedeId, onOpen, onNew }) {
   const [q, setQ] = useState('');
   const today = orders.filter(o => o.sedeOrigen === sedeId);
@@ -302,4 +310,4 @@ function NewOrder({ sedeId, onCancel, onSave, toast }) {
   );
 }
 
-Object.assign(window, { RecepcionHome, NewOrder, OrderCard });
+export { RecepcionHome, NewOrder, OrderCard };

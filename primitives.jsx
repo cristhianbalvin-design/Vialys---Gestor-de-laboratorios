@@ -1,6 +1,8 @@
 // Vialys — primitive UI components
 
-const { useState, useEffect, useRef, useMemo, useCallback } = React;
+import React from 'react';
+import { VIcon, VialysMark } from './icons.jsx';
+import { ESTADO_NM, ESTADO_PILL, TEST_BY_ID, calcEdad, estadoOrden } from './data.jsx';
 
 function Pill({ kind = 'muted', children, dot = false }) {
   return <span className={`v-pill ${kind}`}>{dot && <span className="dot"/>}{children}</span>;
@@ -230,7 +232,7 @@ function ProcessOrderCard({ orden, onClick, status, meta, action, alert, progres
   );
 }
 
-Object.assign(window, {
+export {
   Pill, EstadoPill, AppBar, BackBtn, TabBar, SectionTitle, Field, Btn, Toast, Sheet, Logo, Placeholder,
   ProcessShell, ProcessStat, ProcessToolbar, ProcessEmpty, ProcessOrderCard
-});
+};

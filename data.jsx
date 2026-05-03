@@ -250,7 +250,7 @@ const fmtDate = (iso) => {
 };
 const fmtDateOnly = (iso) => new Date(iso).toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' });
 
-Object.assign(window, {
+export {
   SEDES, ROLES, USUARIOS, CATEGORIAS, TEST_BY_ID, PACIENTES, ESTADOS, ESTADO_NM, ESTADO_PILL,
   ORDENES_SEED, calcEdad, sedeNm, fmtDate, fmtDateOnly, genResultado, newCode, fechaCitaVencida, estadoOrden,
-});
+};

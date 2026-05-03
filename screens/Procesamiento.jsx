@@ -1,5 +1,10 @@
 // Vialys — Procesamiento de muestras
 
+import React, { useState } from 'react';
+import { VIcon } from '../icons.jsx';
+import { Btn, Field, Pill, ProcessEmpty, ProcessOrderCard, ProcessShell, ProcessToolbar, SectionTitle } from '../primitives.jsx';
+import { TEST_BY_ID, estadoOrden, fmtDate, genResultado, sedeNm } from '../data.jsx';
+
 function LegacyProcesamientoHome({ orders, sedeId, onOpen }) {
   const cola = orders.filter(o => o.sedeProc === sedeId && (o.estado === 'muestra_tomada' || o.estado === 'en_proceso'));
 
@@ -187,4 +192,4 @@ function ProcesamientoForm({ orden, onSave, onComplete, onCancel }) {
   );
 }
 
-Object.assign(window, { ProcesamientoHome, ProcesamientoForm });
+export { ProcesamientoHome, ProcesamientoForm };

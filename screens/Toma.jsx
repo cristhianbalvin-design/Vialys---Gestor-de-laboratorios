@@ -1,5 +1,10 @@
 // Vialys — Toma de muestra
 
+import React, { useState } from 'react';
+import { VIcon } from '../icons.jsx';
+import { Btn, EstadoPill, Field, Pill, ProcessEmpty, ProcessOrderCard, ProcessShell, ProcessToolbar, SectionTitle } from '../primitives.jsx';
+import { TEST_BY_ID, calcEdad, estadoOrden, fechaCitaVencida, fmtDate, sedeNm } from '../data.jsx';
+
 function LegacyTomaHome({ orders, sedeId, onOpen, toast, onTake }) {
   const cola = orders.filter(o => o.sedeToma === sedeId && o.estado === 'registrada');
   const vencidas = cola.filter(o => fechaCitaVencida(o)).length;
@@ -197,4 +202,4 @@ function TomaForm({ orden, onSave, onCancel }) {
   );
 }
 
-Object.assign(window, { TomaHome, TomaForm });
+export { TomaHome, TomaForm };

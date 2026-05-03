@@ -1,5 +1,10 @@
 // Vialys — Dashboard / Reportes / Admin
 
+import React, { useState } from 'react';
+import { VIcon } from '../icons.jsx';
+import { Btn, Field, Pill, SectionTitle } from '../primitives.jsx';
+import { CATEGORIAS, ESTADO_NM, ESTADOS, ROLES, SEDES, TEST_BY_ID, USUARIOS, estadoOrden, fmtDateOnly, sedeNm } from '../data.jsx';
+
 function LegacyDashboard({ orders, range, setRange }) {
   const total = orders.length;
   const byEstado = {};
@@ -573,4 +578,4 @@ function Dashboard({ orders, range, setRange }) {
   );
 }
 
-Object.assign(window, { Dashboard, Reportes, AdminScreen });
+export { Dashboard, Reportes, AdminScreen };

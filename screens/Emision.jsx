@@ -1,5 +1,10 @@
 // Vialys — Emisión y vista detalle/PDF
 
+import React, { useState } from 'react';
+import { VIcon, VialysMark } from '../icons.jsx';
+import { Btn, EstadoPill, Field, Pill, ProcessEmpty, ProcessOrderCard, ProcessShell, ProcessToolbar, SectionTitle } from '../primitives.jsx';
+import { TEST_BY_ID, calcEdad, estadoOrden, fmtDate, fmtDateOnly, sedeNm } from '../data.jsx';
+
 function LegacyEmisionHome({ orders, sedeId, onOpen }) {
   const cola = orders.filter(o => o.sedeProc === sedeId && (o.estado === 'resultados_completos' || o.estado === 'validado'));
   const emitidos = orders.filter(o => o.sedeProc === sedeId && o.estado === 'emitido').slice(0, 5);
@@ -217,4 +222,4 @@ function ResultadosSheet({ orden, mode = 'view', onValidate, onEmit, onClose, to
   );
 }
 
-Object.assign(window, { EmisionHome, ResultadosSheet });
+export { EmisionHome, ResultadosSheet };

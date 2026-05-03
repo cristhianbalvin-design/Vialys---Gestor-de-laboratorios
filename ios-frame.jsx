@@ -6,6 +6,8 @@
 // ─────────────────────────────────────────────────────────────
 // Status bar
 // ─────────────────────────────────────────────────────────────
+import React from 'react';
+
 function IOSStatusBar({ dark = false, time = '9:41' }) {
   const c = dark ? '#fff' : '#000';
   return (
@@ -333,6 +335,6 @@ function IOSKeyboard({ dark = false }) {
   );
 }
 
-Object.assign(window, {
+export {
   IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard,
-});
+};

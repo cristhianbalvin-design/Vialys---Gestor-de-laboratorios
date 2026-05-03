@@ -1,6 +1,18 @@
 // Vialys — App shell: routing, role-aware tabs, sheets, toasts
 
-const { useState: uS, useEffect: uE, useReducer: uR, useMemo: uM, useCallback: uC } = React;
+import React, { useCallback as uC, useState as uS } from 'react';
+import { VIcon, VialysMark } from './icons.jsx';
+import {
+  ESTADO_NM, ESTADOS, ORDENES_SEED, ROLES, SEDES, TEST_BY_ID, USUARIOS,
+  calcEdad, estadoOrden, fmtDate, sedeNm
+} from './data.jsx';
+import { AppBar, Btn, EstadoPill, Pill, SectionTitle, Sheet, TabBar, Toast } from './primitives.jsx';
+import { LoginScreen } from './screens/Login.jsx';
+import { RecepcionHome, NewOrder, OrderCard } from './screens/Recepcion.jsx';
+import { TomaHome, TomaForm } from './screens/Toma.jsx';
+import { ProcesamientoHome, ProcesamientoForm } from './screens/Procesamiento.jsx';
+import { EmisionHome, ResultadosSheet } from './screens/Emision.jsx';
+import { AdminScreen, Dashboard, Reportes } from './screens/Admin.jsx';
 
 const TABS_BY_ROLE = {
   recepcion:    [{ id: 'home', label: 'Inicio', icon: 'home' }, { id: 'orders', label: 'Órdenes', icon: 'orders' }, { id: 'profile', label: 'Perfil', icon: 'user' }],
@@ -269,4 +281,4 @@ function OrderDetail({ orden }) {
   );
 }
 
-window.App = App;
+export { App, OrderDetail };
