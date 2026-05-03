@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../styles.css';
 import './shell.css';
-import { IOSDevice } from '../ios-frame.jsx';
 import { TweakRadio, TweakSection, TweakToggle, TweaksPanel, useTweaks } from '../tweaks-panel.jsx';
 import { VIcon } from '../icons.jsx';
 import { App, OrderDetail } from '../app.jsx';
@@ -17,7 +16,6 @@ import { ESTADO_NM, ESTADOS, ORDENES_SEED, SEDES, TEST_BY_ID, USUARIOS, estadoOr
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "viewMode": "desktop",
   "accent": "teal",
-  "showFrame": true,
   "darkMode": false
 }/*EDITMODE-END*/;
 
@@ -30,6 +28,7 @@ const ACCENTS = {
 
 function Root() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [isNarrow, setIsNarrow] = useState(() => window.matchMedia('(max-width: 720px)').matches);
 
   // apply accent variables
   useEffect(() => {
@@ -48,26 +47,21 @@ function Root() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', tweaks.darkMode ? '#0B1220' : '#1B3A6B');
   }, [tweaks.darkMode]);
 
-  const isPhone = tweaks.viewMode === 'phone';
-  const showFrame = tweaks.showFrame && isPhone;
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 720px)');
+    const syncViewport = () => setIsNarrow(media.matches);
+    syncViewport();
+    media.addEventListener('change', syncViewport);
+    return () => media.removeEventListener('change', syncViewport);
+  }, []);
+
+  const isPhone = isNarrow || tweaks.viewMode === 'phone';
 
   return (
     <>
-      {isPhone && showFrame && (
-        <div className="frame-wrap">
-          <IOSDevice color="black">
-            <App darkMode={tweaks.darkMode} onToggleTheme={() => setTweak('darkMode', !tweaks.darkMode)}/>
-          </IOSDevice>
-          <div className="frame-caption">VIALYS · iPhone 15 Pro · 393 × 852</div>
-        </div>
-      )}
-
-      {isPhone && !showFrame && (
-        <div className="frame-wrap">
-          <div style={{ width: 393, height: 852, borderRadius: 32, overflow: 'hidden', boxShadow: '0 30px 80px rgba(0,0,0,0.4)' }}>
-            <App darkMode={tweaks.darkMode} onToggleTheme={() => setTweak('darkMode', !tweaks.darkMode)}/>
-          </div>
-          <div className="frame-caption">VIALYS · 393 × 852</div>
+      {isPhone && (
+        <div className="mobile-stage">
+          <App darkMode={tweaks.darkMode} onToggleTheme={() => setTweak('darkMode', !tweaks.darkMode)}/>
         </div>
       )}
 
@@ -81,9 +75,6 @@ function Root() {
         <TweakSection title="Vista">
           <TweakRadio label="Modo" value={tweaks.viewMode} onChange={(v) => setTweak('viewMode', v)}
             options={[{ value: 'phone', label: 'Móvil' }, { value: 'desktop', label: 'Escritorio' }]}/>
-          {tweaks.viewMode === 'phone' && (
-            <TweakToggle label="Marco iPhone" value={tweaks.showFrame} onChange={(v) => setTweak('showFrame', v)}/>
-          )}
         </TweakSection>
         <TweakSection title="Tema">
           <TweakToggle label="Modo oscuro" value={tweaks.darkMode} onChange={(v) => setTweak('darkMode', v)}/>

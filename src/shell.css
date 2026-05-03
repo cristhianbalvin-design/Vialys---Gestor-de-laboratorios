@@ -1,8 +1,10 @@
-html, body, #root { width: 100%; min-height: 100%; }
-  body { background: #1d2330; min-height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center; padding: 0; }
+html, body, #root { width: 100%; min-height: 100%; height: 100%; }
+  body { background: var(--v-bg-app); min-height: 100vh; margin: 0; display: flex; align-items: stretch; justify-content: stretch; padding: 0; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .frame-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; }
   .frame-caption { color: #9aa3b8; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; }
+  .mobile-stage { width: 100vw; height: 100vh; height: 100dvh; max-width: 430px; margin: 0 auto; background: var(--v-bg-app); overflow: hidden; }
+  .mobile-stage .v-app { width: 100%; height: 100vh; height: 100dvh; min-height: 100vh; min-height: 100dvh; }
   .desktop-stage { width: 100vw; height: 100vh; background: #F4F6FA; overflow: hidden; }
   .desktop-shell { display: flex; width: 100%; height: 100%; color: var(--v-ink); background: #F4F6FA; }
   .desktop-sidebar { width: clamp(232px, 18vw, 288px); background: #0F2447; color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
@@ -129,6 +131,7 @@ html, body, #root { width: 100%; min-height: 100%; }
   html[data-theme="dark"] .v-sheet-scrim { background: rgba(2, 6, 15, 0.72) !important; }
   @media (max-width: 860px) {
     body { padding: 0; }
+    .mobile-stage { max-width: none; }
     .desktop-shell { flex-direction: column; }
     .desktop-sidebar { width: 100%; height: auto; padding: 14px; flex-direction: row; overflow-x: auto; align-items: center; }
     .desktop-sidebar .desktop-brand, .desktop-sidebar .desktop-user { display: none; }
